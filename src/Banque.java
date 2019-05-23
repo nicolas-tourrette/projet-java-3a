@@ -1,7 +1,7 @@
 public class Banque {
     public static void main(String[] args) {
-        Compte unCompte = new Compte("52153318018", "2019-05-18", true);
-        Compte unDeuxiemeCompte = new Compte("01789710348", "1998-02-15", false);
+        CompteCourant unCompte = new CompteCourant("52153318018", "2019-05-18", true);
+        CompteCourant unDeuxiemeCompte = new CompteCourant("01789710348", "1998-02-15", false);
 
         System.out.println(unCompte);
         System.out.println(unDeuxiemeCompte);
@@ -30,5 +30,12 @@ public class Banque {
         System.out.println();
         unCompte.approvisionnerCompte("2019-08-19", "Réappro", 20);
         System.out.println(unCompte);
+
+        unCompte.setDecouvertAutorise(false);
+
+        System.out.println();
+        unCompte.effectuerPaiement("2019-05-18", unDeuxiemeCompte, "Paiement #2", 20);
+        System.out.println(unCompte);
+        System.out.println(unDeuxiemeCompte);
     }
 }
