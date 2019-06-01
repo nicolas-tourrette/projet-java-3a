@@ -5,8 +5,8 @@ public class CompteCourant extends Compte {
     private float decouvertMaximal;
     private float decouvertActuel;
 
-    public CompteCourant(String numeroCompte, String dateOuverture, boolean decouvertAutorise) {
-        super(numeroCompte, dateOuverture) ;
+    public CompteCourant(String numeroCompte, String dateOuverture, boolean decouvertAutorise, float premierVersement) {
+        super(numeroCompte, dateOuverture, premierVersement) ;
         this.decouvertAutorise = decouvertAutorise;
         if (!decouvertAutorise) {
             decouvertMaximal = 0.0f;
@@ -53,14 +53,6 @@ public class CompteCourant extends Compte {
     }
 
     @Override
-    public void approvisionnerCompte(String dateValeur, String libelleOperation, float somme) {
-        if (decouvertActuel > 0) {
-            decouvertActuel -= somme;
-        }
-        super.approvisionnerCompte(dateValeur, libelleOperation, somme);
-    }
-
-    @Override
     public void approvisionnerCompte(String dateValeur, Compte compteDebite, String libelleOperation, float somme) {
         if (decouvertActuel > 0) {
             decouvertActuel -= somme;
@@ -72,12 +64,11 @@ public class CompteCourant extends Compte {
         boolean autorisation = calculDecouvert(somme);
         if (solde > somme || (decouvertAutorise && decouvertActuel <= decouvertMaximal) && autorisation) {
             solde -= somme;
-            compteCredite.approvisionnerCompte(dateValeur, this, "Paiement de " + numeroCompte, somme);
             System.out.println("---------------------------------\nPaiement depuis le compte n°" + numeroCompte);
-            System.out.println("     Date           : " + dateValeur);
-            System.out.println("     Compte crédité : " + compteCredite.getNumeroCompte());
-            System.out.println("     Somme          : " + somme + " €");
-            System.out.println("     Libellé        : " + libelleOperation);
+            Operation paiement = new Operation(libelleOperation, dateValeur, somme, compteCredite, this);
+            tableauOperations.add(paiement);
+            paiement.afficherOperation();
+            compteCredite.approvisionnerCompte(dateValeur, this, "Paiement de " + numeroCompte, somme);
         } else {
             System.out.println("---------------------------------\nLe solde n'est pas suffisant pour effectuer ce paiement ! Opération refusée. Réapprovisionnez votre compte.");
             System.out.println("     Somme manquante : " + (solde - somme + decouvertMaximal) + " €.");
