@@ -14,6 +14,7 @@ public class Operation {
         this.moyenPaiement = moyenPaiement;
     }
 
+    // TO BE REMOVED: FOR TEST ONLY
     protected Operation(String libelle, String date, float montant, Compte compteCredite, Compte compteDebite) {
         libelleOperation = libelle;
         dateValeur = date;
@@ -40,6 +41,8 @@ public class Operation {
             System.out.println("     Compte débité     : " + compteDebite.getNumeroCompte());
         }
         System.out.println("     Somme             : " + montantOperation + " €");
-        System.out.println("     Moyen de paiement : " + moyenPaiement);
+        if(moyenPaiement != null){
+            System.out.println("     Moyen de paiement : " + moyenPaiement.getNumero());
+        }
     }
 }

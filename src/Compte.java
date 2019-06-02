@@ -52,6 +52,6 @@ public abstract class Compte {
     }
 
     public String toString() {
-        return "---------------------------------\nAffichage du compte n°" + numeroCompte + "\n     Ouvert le : " + dateOuverture + "\n     Solde : " + solde + " €";
+        return "---------------------------------\nAffichage du compte n°" + numeroCompte + "\n     Ouvert le : " + dateOuverture + "\n     Solde     : " + solde + " €";
     }
 }

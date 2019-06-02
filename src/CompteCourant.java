@@ -60,12 +60,13 @@ public class CompteCourant extends Compte {
         super.approvisionnerCompte(dateValeur, compteDebite, libelleOperation, somme);
     }
 
-    public void effectuerPaiement(String dateValeur, Compte compteCredite, String libelleOperation, float somme) {
+    private void procederPaiement(String dateValeur, Compte compteCredite, String libelleOperation, float somme, MoyenPaiement moyenDePaiement){
         boolean autorisation = calculDecouvert(somme);
         if (solde > somme || (decouvertAutorise && decouvertActuel <= decouvertMaximal) && autorisation) {
+            moyenDePaiement.ajouterPlafond(somme);
             solde -= somme;
             System.out.println("---------------------------------\nPaiement depuis le compte n°" + numeroCompte);
-            Operation paiement = new Operation(libelleOperation, dateValeur, somme, compteCredite, this);
+            Operation paiement = new Operation(libelleOperation, dateValeur, somme, compteCredite, this, moyenDePaiement);
             tableauOperations.add(paiement);
             paiement.afficherOperation();
             compteCredite.approvisionnerCompte(dateValeur, this, "Paiement de " + numeroCompte, somme);
@@ -75,13 +76,37 @@ public class CompteCourant extends Compte {
         }
     }
 
+    public void effectuerPaiement(String dateValeur, Compte compteCredite, String libelleOperation, float somme, MoyenPaiement moyenDePaiement) {
+        if(moyenDePaiement.getNumero().substring(0,2) == "CB"){
+            if(moyenDePaiement.verifierPlafond(somme)){
+                if(moyenDePaiement.isControleSolde()){
+                    if(solde > somme){
+                        procederPaiement(dateValeur, compteCredite, libelleOperation, somme, moyenDePaiement);
+                    }
+                    else{
+                        System.out.println("---------------------------------\nPaiement refusé : le contrôle de solde n'a pas permis la transaction.");
+                    }
+                }
+                else{
+                    procederPaiement(dateValeur, compteCredite, libelleOperation, somme, moyenDePaiement);
+                }
+            }
+            else{
+                System.out.println("---------------------------------\nPaiement refusé : le plafond est atteint. Vous êtes en dépassement de " + moyenDePaiement.getDepassementPlafond(somme) + " €.");
+            }
+        }
+        else{
+            procederPaiement(dateValeur, compteCredite, libelleOperation, somme, moyenDePaiement);
+        }
+    }
+
     @Override
     public String toString() {
         if (decouvertAutorise) {
             float decouvertRestant = decouvertMaximal - decouvertActuel;
-            return "---------------------------------\nAffichage du compte n°" + numeroCompte + "\n     Ouvert le : " + dateOuverture + "\n     Solde : " + solde + " €\n     Découvert : " + decouvertActuel + " €\n     Découvert restant : " + decouvertRestant + " €";
+            return "---------------------------------\nAffichage du compte n°" + numeroCompte + "\n     Ouvert le : " + dateOuverture + "\n     Solde     : " + solde + " €\n     Découvert : " + decouvertActuel + " €\n     Découvert restant : " + decouvertRestant + " €";
         } else {
-            return "---------------------------------\nAffichage du compte n°" + numeroCompte + "\n     Ouvert le : " + dateOuverture + "\n     Solde : " + solde + " €\n     Découvert : NON AUTORISÉ";
+            return "---------------------------------\nAffichage du compte n°" + numeroCompte + "\n     Ouvert le : " + dateOuverture + "\n     Solde     : " + solde + " €\n     Découvert : NON AUTORISÉ";
         }
     }
 }
