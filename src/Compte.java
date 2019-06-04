@@ -20,6 +20,10 @@ public abstract class Compte {
         return numeroCompte;
     }
 
+    protected float getSolde() {
+        return solde;
+    }
+
     protected void apportCompte(String dateValeur, String libelleOperation, float somme) {
         solde += somme;
         Operation approvissionnement = new Operation(libelleOperation, dateValeur, somme, this) ;

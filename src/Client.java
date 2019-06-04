@@ -26,6 +26,20 @@ public class Client {
         moyenPaiementsClient.add(leMoyenPaiement);
     }
 
+    public void afficherOperations(){
+        System.out.println("---------------------------------\nAffichage des opérations du client " + nomClient + " " + prenomClient);
+        for(int i=0; i<comptesClient.size(); i++){
+            comptesClient.get(i).afficherOperations();
+        }
+    }
+
+    public void afficherSolde(){
+        System.out.println("---------------------------------\nAffichage des soldes du client " + nomClient + " " + prenomClient);
+        for(int i=0; i<comptesClient.size(); i++){
+            System.out.println("     Compte n°" + comptesClient.get(i).getNumeroCompte() + " : " + comptesClient.get(i).getSolde() + " €.");
+        }
+    }
+
     public String getClient() {
         return nomClient + " " + prenomClient;
     }
@@ -35,13 +49,13 @@ public class Client {
         String affichage = "---------------------------------\nAffichage du client " + nomClient + " " + prenomClient + "\n     Résidant  : " + adresseClient + "\n     Ville     : " + villeClient + "\n     Téléphone : " + telephoneClient + "\n";
         affichage += "**** Comptes ********************\n";
         for(int i=0 ; i<comptesClient.size() ; i++){
-            affichage += comptesClient.get(i).toString();
+            affichage += comptesClient.get(i).toString() + "\n";
         }
         affichage += "\n**** Moyens de paiement *********\n";
         for(int i=0 ; i<moyenPaiementsClient.size() ; i++){
-            affichage += moyenPaiementsClient.get(i).toString();
+            affichage += moyenPaiementsClient.get(i).toString() + "\n";
         }
-        affichage += "\n*********************************" ;
+        affichage += "*********************************" ;
         return affichage;
     }
 }

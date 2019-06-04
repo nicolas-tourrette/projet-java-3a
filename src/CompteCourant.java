@@ -77,7 +77,7 @@ public class CompteCourant extends Compte {
     }
 
     public void effectuerPaiement(String dateValeur, Compte compteCredite, String libelleOperation, float somme, MoyenPaiement moyenDePaiement) {
-        if(moyenDePaiement.getNumero().substring(0,2) == "CB"){
+        if(moyenDePaiement.getNumero().substring(0,2).equals("CB")){
             if(moyenDePaiement.verifierPlafond(somme)){
                 if(moyenDePaiement.isControleSolde()){
                     if(solde > somme){
@@ -93,6 +93,14 @@ public class CompteCourant extends Compte {
             }
             else{
                 System.out.println("---------------------------------\nPaiement refusé : le plafond est atteint. Vous êtes en dépassement de " + moyenDePaiement.getDepassementPlafond(somme) + " €.");
+            }
+        }
+        else if(moyenDePaiement.getNumero().substring(0,2).equals("CQ")){
+            if(moyenDePaiement.verifierPlafond(somme)){
+                procederPaiement(dateValeur, compteCredite, libelleOperation, somme, moyenDePaiement);
+            }
+            else{
+                System.out.println("---------------------------------\nPaiement refusé : le chéquier est épuisé.");
             }
         }
         else{
