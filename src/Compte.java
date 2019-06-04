@@ -1,10 +1,25 @@
 import java.util.ArrayList;
 
 public abstract class Compte {
+
+    /**
+     * Création des attributs de la classe Compte
+     *      - numéro du compte, solde, date d'ouverture et tableau des opérations effectuées sur le compte.
+     * La classe 'Compte' est une classe abstraite qui n'a pas vocation a être utilisée. On crée des comptes courant
+     * ou des comptes épargne mais pas des comptes "vides".
+     */
+
     protected String numeroCompte;
     protected float solde;
     protected String dateOuverture;
     protected ArrayList<Operation> tableauOperations = new ArrayList<Operation>();
+
+    /**
+     * Constructeur de la classe abstraire 'Compte' qui sera surchargé.
+     * @param numeroCompte      : le numéro du compte
+     * @param dateOuverture     : la date d'ouverture
+     * @param premierVersement  : le premier versement effectué
+     */
 
     protected Compte(String numeroCompte, String dateOuverture, float premierVersement) {
         this.numeroCompte = numeroCompte;
@@ -16,14 +31,28 @@ public abstract class Compte {
         }
     }
 
+    /**
+     * Getter pour le numéro du compte.
+     * @return numeroCompte
+     */
     protected String getNumeroCompte() {
         return numeroCompte;
     }
 
+    /**
+     * Getter pour le solde du compte.
+     * @return
+     */
     protected float getSolde() {
         return solde;
     }
 
+    /**
+     * Approvisionnement du compte par simple apport (exemple d'une remise d'espèces).
+     * @param dateValeur        : date de valeur de l'opération
+     * @param libelleOperation  : libellé pour mémoire
+     * @param somme             : somme d'argent apportée sur le compte qui sera ajoutée au solde
+     */
     protected void apportCompte(String dateValeur, String libelleOperation, float somme) {
         solde += somme;
         Operation approvissionnement = new Operation(libelleOperation, dateValeur, somme, this) ;
@@ -33,6 +62,13 @@ public abstract class Compte {
         System.out.println("     Nouveau sole      : " + solde + " €");
     }
 
+    /**
+     * Surcharge de la méthode précédente pour ajouter un compte débité (par exemple un virement depuis un autre compte).
+     * @param dateValeur        : date de valeur de l'opération
+     * @param compteDebite      : compte débité de la somme passée en paramètres
+     * @param libelleOperation  : libellé pour mémoire
+     * @param somme             : somme d'argent apportée sur le compte qui sera ajoutée au solde et débitée au compteDebite
+     */
     protected void approvisionnerCompte(String dateValeur, Compte compteDebite, String libelleOperation, float somme) {
         solde += somme;
         Operation approvissionnement = new Operation(libelleOperation, dateValeur, somme, this, compteDebite) ;
@@ -42,6 +78,9 @@ public abstract class Compte {
         System.out.println("     Nouveau sole      : " + solde + " €");
     }
 
+    /**
+     * Afficher les opérations effectuées sur le compte.
+     */
     protected void afficherOperations(){
         System.out.println("---------------------------------\nOpérations du compte n°" + numeroCompte);
         if(tableauOperations.size() > 0){
@@ -55,6 +94,10 @@ public abstract class Compte {
         }
     }
 
+    /**
+     * Surcharge de la méthode toString() pour afficher le compte basique.
+     * @return
+     */
     public String toString() {
         return "---------------------------------\nAffichage du compte n°" + numeroCompte + "\n     Ouvert le : " + dateOuverture + "\n     Solde     : " + solde + " €";
     }

@@ -1,5 +1,11 @@
 public class Execution {
+    public static void MenuPrincipal(){
+        System.out.println("Test");
+    }
+
     public static void main(String[] args) {
+        MenuPrincipal();
+
         CompteCourant unCompte = new CompteCourant("52153318018", "2019-05-18", true, 3000);
         CompteCourant unDeuxiemeCompte = new CompteCourant("01789710348", "1998-02-15", false, 0);
         CompteEpargne unTroisiemeCompte = new CompteEpargne("52153318021", "2019-05-18", "PEL", 1.05f,2500);

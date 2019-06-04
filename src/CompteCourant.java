@@ -76,6 +76,13 @@ public class CompteCourant extends Compte {
         }
     }
 
+    /**
+     * @param dateValeur
+     * @param compteCredite
+     * @param libelleOperation
+     * @param somme
+     * @param moyenDePaiement
+     */
     public void effectuerPaiement(String dateValeur, Compte compteCredite, String libelleOperation, float somme, MoyenPaiement moyenDePaiement) {
         if(moyenDePaiement.getNumero().substring(0,2).equals("CB")){
             if(moyenDePaiement.verifierPlafond(somme)){
