@@ -73,6 +73,24 @@ public class Client {
         }
     }
 
+    public String afficherComptes(){
+        String affichage = "";
+        for(int i=0 ; i<comptesClient.size() ; i++){
+            affichage += comptesClient.get(i).toString() + "\n";
+        }
+
+        return affichage;
+    }
+
+    public String afficherMoyensPaiement(){
+        String affichage = "";
+        for(int i=0 ; i<moyenPaiementsClient.size() ; i++){
+            affichage += moyenPaiementsClient.get(i).toString() + "\n";
+        }
+
+        return affichage;
+    }
+
     /**
      * Getter pour le client.
      * @return NOM Prénom du client
@@ -91,14 +109,11 @@ public class Client {
     public String toString() {
         String affichage = "---------------------------------\nAffichage du client " + nomClient + " " + prenomClient + "\n     Résidant  : " + adresseClient + "\n     Ville     : " + villeClient + "\n     Téléphone : " + telephoneClient + "\n";
         affichage += "**** Comptes ********************\n";
-        for(int i=0 ; i<comptesClient.size() ; i++){
-            affichage += comptesClient.get(i).toString() + "\n";
-        }
+        affichage += afficherComptes();
         affichage += "\n**** Moyens de paiement *********\n";
-        for(int i=0 ; i<moyenPaiementsClient.size() ; i++){
-            affichage += moyenPaiementsClient.get(i).toString() + "\n";
-        }
+        affichage += afficherMoyensPaiement();
         affichage += "*********************************" ;
+
         return affichage;
     }
 }

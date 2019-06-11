@@ -1,78 +1,82 @@
+import java.util.Scanner;
+
 public class Execution {
-    public static void MenuPrincipal(){
-        System.out.println("Test");
+    public static void MenuPrincipal() {
+        System.out.println("Choissez parmi l'une des actions suivantes :");
+        System.out.println("     (1)   Créer un nouveau client");
+        System.out.println("     (2)   Afficher un client");
+        System.out.println("     (3)   Ouvrir un compte");
+        System.out.println("     (4)   Commander un moyen de paiement");
+        System.out.println("     (5)   Approvisionner un compte");
+        System.out.println("     (6)   Effectuer un paiment");
+        System.out.println("     (7)   Calculer des intérêts");
+        System.out.println("     (8)   Consulter les comptes d'un client");
+        System.out.println("     (9)   Consulter les opérations d'un client");
+        System.out.println("     (10)  Consulter les soldes d'un client");
+        System.out.println("     (11)  Consulter les moyens de paiement d'un client");
+        System.out.println("     (12)  Modifier le découvert");
+        System.out.println("     (13)  Réinitialiser un plafond de carte bancaire");
+        System.out.println("     (XX)  Choix hors de la plage pour quitter");
     }
 
     public static void main(String[] args) {
-        MenuPrincipal();
+        Banque laBanque = new Banque();
+        Scanner scanner = new Scanner(System.in);
+        int choix = 0;
+        String version = "1.0  Build 1";
 
-        CompteCourant unCompte = new CompteCourant("52153318018", "2019-05-18", true, 3000);
-        CompteCourant unDeuxiemeCompte = new CompteCourant("01789710348", "1998-02-15", false, 0);
-        CompteEpargne unTroisiemeCompte = new CompteEpargne("52153318021", "2019-05-18", "PEL", 1.05f,2500);
-        Client nicolasTOURRETTE = new Client("TOURRETTE", "Nicolas", "19, Avenenue Alain Savary", "Dijon", "03.80.69.39.03.");
-        nicolasTOURRETTE.nouveauCompte(unCompte);
-        nicolasTOURRETTE.nouveauCompte(unTroisiemeCompte);
-        CarteCredit uneCarteCredit = new CarteCredit(nicolasTOURRETTE, unCompte, "169785784526", "CB MasterCard", 5000, "2022-03-01");
-        nicolasTOURRETTE.nouveauMoyenPaiement(uneCarteCredit);
-        Chequier monChequier = new Chequier(nicolasTOURRETTE, unCompte, "Crédit Agricole Champagne-Bourgogne");
-        nicolasTOURRETTE.nouveauMoyenPaiement(monChequier);
+        System.out.println("************   GESTIONNAIRE DE BANQUE   ************");
+        System.out.println("                Version " + version);
+        System.out.println("\n/!\\ NOTE : le séparateur décimal est la VIRGULE pour la saisie des nombres flottants. /!\\");
 
-        System.out.println(monChequier);
-
-        System.out.println(unCompte);
-        System.out.println(unDeuxiemeCompte);
-
-        System.out.println("\nE1\n");
-        unCompte.apportCompte("2019-05-31", "Test", 25);
-
-        System.out.println("\nE2\n");
-        unCompte.effectuerPaiement("2019-05-18", unDeuxiemeCompte, "Paiement #1", 150, monChequier);
-        System.out.println(unCompte);
-        System.out.println(unDeuxiemeCompte);
-        System.out.println(monChequier);
-
-        System.out.println("\nE3\n");
-        unCompte.effectuerPaiement("2019-05-18", unDeuxiemeCompte, "Paiement #2", 2900, monChequier);
-        System.out.println(unCompte);
-        System.out.println(unDeuxiemeCompte);
-        System.out.println(monChequier);
-
-        unTroisiemeCompte.calculInterets(2019);
-        System.out.println(unTroisiemeCompte);
-
-        /*System.out.println("\nE4\n");
-        unCompte.effectuerPaiement("2019-05-18", unDeuxiemeCompte, "Paiement #3", 40, uneCarteCredit);
-        System.out.println(unCompte);
-        System.out.println(unDeuxiemeCompte);
-        System.out.println(uneCarteCredit);
-
-        System.out.println("\nE5\n");
-        unCompte.effectuerPaiement("2019-05-18", unDeuxiemeCompte, "Paiement #4", 20, uneCarteCredit);
-        System.out.println(unCompte);
-        System.out.println(unDeuxiemeCompte);
-        System.out.println(uneCarteCredit);
-
-        //unCompte.setDecouvertAutorise(false);
-
-        System.out.println("\nE6\n");
-        unCompte.effectuerPaiement("2019-05-18", unDeuxiemeCompte, "Paiement #5", 20, uneCarteCredit);
-        System.out.println(unCompte);
-        System.out.println(unDeuxiemeCompte);
-        System.out.println(uneCarteCredit);
-
-        unTroisiemeCompte.calculInterets(2019);
-
-        System.out.println("\nE7\n");
-        unCompte.afficherOperations();
-        unDeuxiemeCompte.afficherOperations();
-
-        System.out.println("\nE8\n");
-        System.out.println(nicolasTOURRETTE);
-
-        System.out.println("\nE9\n");
-        nicolasTOURRETTE.afficherOperations();
-
-        System.out.println("\nE10\n");
-        nicolasTOURRETTE.afficherSolde();*/
+        do {
+            System.out.println();
+            MenuPrincipal();
+            System.out.print("Choix souhaité : ");
+            choix = scanner.nextInt();
+            switch (choix) {
+                case 1:
+                    laBanque.nouveauClient();
+                    break;
+                case 2:
+                    laBanque.afficherClient();
+                    break;
+                case 3:
+                    laBanque.ouvrirCompte();
+                    break;
+                case 4:
+                    laBanque.nouveauMoyenPaiement();
+                    break;
+                case 5:
+                    laBanque.approvisionnerCompte();
+                    break;
+                case 6:
+                    laBanque.effectuerPaiement();
+                    break;
+                case 7:
+                    laBanque.calculerInterets();
+                    break;
+                case 8:
+                    laBanque.consulterCompte();
+                    break;
+                case 9:
+                    laBanque.consulterOperations();
+                    break;
+                case 10:
+                    laBanque.consulterSolde();
+                    break;
+                case 11:
+                    laBanque.consulterMoyensPaiement();
+                    break;
+                case 12:
+                    laBanque.modifierDecouvert();
+                    break;
+                case 13:
+                    laBanque.razPlafondCarte();
+                    break;
+                default:
+                    System.out.println("À bientôt !");
+            }
+        } while (choix > 0 && choix < 14);
     }
 }

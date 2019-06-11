@@ -73,6 +73,11 @@ public abstract class Compte {
         solde += somme;
         Operation approvissionnement = new Operation(libelleOperation, dateValeur, somme, this, compteDebite) ;
         tableauOperations.add(approvissionnement);
+
+        compteDebite.solde -= somme;
+        Operation debit = new Operation(libelleOperation, dateValeur, somme, this, compteDebite) ;
+        compteDebite.tableauOperations.add(debit);
+
         System.out.println("---------------------------------\nApprovisionnement du compte n°" + numeroCompte);
         approvissionnement.afficherOperation();
         System.out.println("     Nouveau sole      : " + solde + " €");
@@ -93,6 +98,10 @@ public abstract class Compte {
             System.out.println("     Aucune opération à afficher.");
         }
     }
+
+    public abstract void effectuerPaiement(String dateValeur, Compte compteCredite, String libelleOperation, float somme, MoyenPaiement moyenDePaiement);
+    public abstract void calculInterets(int annee);
+    public abstract void setDecouvertAutorise(boolean decouvertAutorise);
 
     /**
      * Surcharge de la méthode toString() pour afficher le compte basique.

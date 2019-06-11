@@ -47,4 +47,5 @@ public abstract class MoyenPaiement {
     protected abstract void ajouterPlafond(float somme);
     protected abstract float getDepassementPlafond(float somme);
     protected abstract String getNumero();
+    public abstract void razPlafond();
 }

@@ -131,6 +131,7 @@ public class CompteCourant extends Compte {
      * @param moyenDePaiement   : moyen de paiement
      */
 
+    @Override
     public void effectuerPaiement(String dateValeur, Compte compteCredite, String libelleOperation, float somme, MoyenPaiement moyenDePaiement) {
         if(moyenDePaiement.getNumero().substring(0,2).equals("CB")){
             if(moyenDePaiement.verifierPlafond(somme)){
@@ -162,6 +163,8 @@ public class CompteCourant extends Compte {
             procederPaiement(dateValeur, compteCredite, libelleOperation, somme, moyenDePaiement);
         }
     }
+
+    public void calculInterets(int annee){}
 
     /**
      * Surcharge de la méthode toString() de la classe 'Compte' pour l'adapter au compte courant.

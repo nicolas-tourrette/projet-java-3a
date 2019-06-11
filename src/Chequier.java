@@ -62,6 +62,7 @@ public class Chequier extends MoyenPaiement {
      */
     public void ajouterPlafond(float somme){}
     public float getDepassementPlafond(float somme){ return 0; }
+    public void razPlafond(){}
 
     /**
      * Retourne le numéro du chèque utilisé pour déterminer le type de moyen de paiement au moment de celui-ci et remplir

@@ -40,6 +40,9 @@ public class CompteEpargne extends Compte {
         tableauOperations.add(versementInterets);
     }
 
+    public void effectuerPaiement(String dateValeur, Compte compteCredite, String libelleOperation, float somme, MoyenPaiement moyenDePaiement){}
+    public void setDecouvertAutorise(boolean decouvertAutorise){}
+
     /**
      * Surcharge de la méthode toString() de la classe 'Compte' pour l'adapter au compte épargne.
      * @return : l'affichage désiré pour le compte.
