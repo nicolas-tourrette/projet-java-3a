@@ -37,6 +37,9 @@ public class Execution {
         System.out.println(unDeuxiemeCompte);
         System.out.println(monChequier);
 
+        unTroisiemeCompte.calculInterets(2019);
+        System.out.println(unTroisiemeCompte);
+
         /*System.out.println("\nE4\n");
         unCompte.effectuerPaiement("2019-05-18", unDeuxiemeCompte, "Paiement #3", 40, uneCarteCredit);
         System.out.println(unCompte);

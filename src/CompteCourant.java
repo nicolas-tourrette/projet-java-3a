@@ -1,9 +1,24 @@
 import java.util.Scanner;
 
 public class CompteCourant extends Compte {
+
+    /**
+     * Création des attributs propres à la classe 'CompteCourant', dérivée de 'Compte'
+     *      - decouvert autorisé (oui/non), découvert maximal sur le compte, découvert actuel.
+     * On hérite des attributs de 'Compte' (numéro, date d'ouverture, solde et opérations).
+     */
+
     private boolean decouvertAutorise;
     private float decouvertMaximal;
     private float decouvertActuel;
+
+    /**
+     * Constructeur de la classe 'CompteCourant' surchargé de la classe 'Compte'
+     * @param numeroCompte      : numéro du compte
+     * @param dateOuverture     : date d'ouverture
+     * @param decouvertAutorise : découvert autorisé (booléen)
+     * @param premierVersement  : premier versement sur le compte
+     */
 
     public CompteCourant(String numeroCompte, String dateOuverture, boolean decouvertAutorise, float premierVersement) {
         super(numeroCompte, dateOuverture, premierVersement) ;
@@ -19,6 +34,12 @@ public class CompteCourant extends Compte {
             decouvertMaximal = decouvertMaxi;
         }
     }
+
+    /**
+     * Modification du découvert autorisé sur le compte.
+     * @param decouvertAutorise : on modifie la valeur du booléen. Si passage à faux, on supprime le découvert autorisé.
+     *                            Si on fournit vrai, on demande la valeur du découvert maximal autorisé.
+     */
 
     public void setDecouvertAutorise(boolean decouvertAutorise) {
         this.decouvertAutorise = decouvertAutorise;
@@ -38,6 +59,13 @@ public class CompteCourant extends Compte {
         }
     }
 
+    /**
+     * On calcul le découvert pour la suite d'un paiement. Si le découvert dépasse celui autorisé, on retourne faux.
+     * Sinon on retourne vrai pour autoriser la transaction, en ajoutant la somme au découvert si nécessaire.
+     * @param somme : montant de la transaction demandée.
+     * @return      : booléen VRAI/FAUX pour autoriser la transaction ou non.
+     */
+
     private boolean calculDecouvert(float somme) {
         if (somme > solde) {
             float decouvert = -solde + somme;
@@ -52,6 +80,14 @@ public class CompteCourant extends Compte {
         return true ;
     }
 
+    /**
+     * Surcharge de la méthode d'approvisionnement pour tenir compte du découvert dans le cas des comptes courants.
+     * @param dateValeur        : date de valeur de l'opération
+     * @param compteDebite      : compte débité de la somme passée en paramètres
+     * @param libelleOperation  : libellé pour mémoire
+     * @param somme             : somme d'argent apportée sur le compte qui sera ajoutée au solde et débitée au compteDebite
+     */
+
     @Override
     public void approvisionnerCompte(String dateValeur, Compte compteDebite, String libelleOperation, float somme) {
         if (decouvertActuel > 0) {
@@ -59,6 +95,16 @@ public class CompteCourant extends Compte {
         }
         super.approvisionnerCompte(dateValeur, compteDebite, libelleOperation, somme);
     }
+
+    /**
+     * Procédure de paiement : on effectue les opérations nécessaires sur les différents comptes en remplissant les tableaux
+     * d'opérations.
+     * @param dateValeur        : date du paiement
+     * @param compteCredite     : compte créditeur recevant le paiement
+     * @param libelleOperation  : libellé pour mémoire
+     * @param somme             : montant du paiement
+     * @param moyenDePaiement   : moyen de paiement
+     */
 
     private void procederPaiement(String dateValeur, Compte compteCredite, String libelleOperation, float somme, MoyenPaiement moyenDePaiement){
         boolean autorisation = calculDecouvert(somme);
@@ -77,12 +123,14 @@ public class CompteCourant extends Compte {
     }
 
     /**
-     * @param dateValeur
-     * @param compteCredite
-     * @param libelleOperation
-     * @param somme
-     * @param moyenDePaiement
+     * Fonction qui effectue un paiement en fonction du type de moyen de paiement et de ses différentes caractéristiques.
+     * @param dateValeur        : date du paiement
+     * @param compteCredite     : compte créditeur recevant le paiement
+     * @param libelleOperation  : libellé pour mémoire
+     * @param somme             : montant du paiement
+     * @param moyenDePaiement   : moyen de paiement
      */
+
     public void effectuerPaiement(String dateValeur, Compte compteCredite, String libelleOperation, float somme, MoyenPaiement moyenDePaiement) {
         if(moyenDePaiement.getNumero().substring(0,2).equals("CB")){
             if(moyenDePaiement.verifierPlafond(somme)){
@@ -114,6 +162,11 @@ public class CompteCourant extends Compte {
             procederPaiement(dateValeur, compteCredite, libelleOperation, somme, moyenDePaiement);
         }
     }
+
+    /**
+     * Surcharge de la méthode toString() de la classe 'Compte' pour l'adapter au compte courant.
+     * @return : l'affichage désiré pour le compte.
+     */
 
     @Override
     public String toString() {

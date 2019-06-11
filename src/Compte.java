@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public abstract class Compte {
 
     /**
-     * Création des attributs de la classe Compte
+     * Création des attributs de la classe 'Compte'
      *      - numéro du compte, solde, date d'ouverture et tableau des opérations effectuées sur le compte.
      * La classe 'Compte' est une classe abstraite qui n'a pas vocation a être utilisée. On crée des comptes courant
      * ou des comptes épargne mais pas des comptes "vides".
@@ -96,7 +96,7 @@ public abstract class Compte {
 
     /**
      * Surcharge de la méthode toString() pour afficher le compte basique.
-     * @return
+     * @return : l'affichage désiré pour le compte.
      */
     public String toString() {
         return "---------------------------------\nAffichage du compte n°" + numeroCompte + "\n     Ouvert le : " + dateOuverture + "\n     Solde     : " + solde + " €";
