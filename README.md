@@ -32,6 +32,8 @@ NOTES IMPORTANTES
     b. Créer au moins un compte par client.
     c. Créer au moins un moyen de paiement par client.
     d. Faire en sorte que chaque compte soit suffisamment alimenté, même si le premier versement peut être nul.
+4. Pour créer un moyen de paiement, afin de garantir le bon fonctionnement du programme, il faut veiller au respect de la convention suivante :
+    a. Le type de carte banquaire doit OBLIGATOIREMENT commencer par "CB" (casse obligatoire).
 
 
 #   3-  EN CAS DE BUG À L'EXÉCUTION DE L'ARCHIVE JAR
