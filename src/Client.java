@@ -4,7 +4,7 @@ public class Client {
 
     /**
      * Déclaration des attributs pour la classe 'Client'
-     *      - nom, prénom, adresse, ville et numéro de téléphone du client, tableau de ses comptes et de ses moyens de paiement.
+     * - nom, prénom, adresse, ville et numéro de téléphone du client, tableau de ses comptes et de ses moyens de paiement.
      */
 
     private String nomClient;
@@ -17,14 +17,15 @@ public class Client {
 
     /**
      * Constructeur de la classe 'Client'
-     * @param nom               : nom du client
-     * @param prenom            : prénom du client
-     * @param adresse           : adresse du client
-     * @param ville             : ville du client
-     * @param numeroTelephone   : numéro de téléphone du client
+     *
+     * @param nom             : nom du client
+     * @param prenom          : prénom du client
+     * @param adresse         : adresse du client
+     * @param ville           : ville du client
+     * @param numeroTelephone : numéro de téléphone du client
      */
 
-    public Client(String nom, String prenom, String adresse, String ville, String numeroTelephone){
+    public Client(String nom, String prenom, String adresse, String ville, String numeroTelephone) {
         nomClient = nom.toUpperCase();
         prenomClient = prenom;
         adresseClient = adresse;
@@ -34,19 +35,21 @@ public class Client {
 
     /**
      * Créer un compte pour le client et lui affecte ce compte.
+     *
      * @param leCompte : compte à affecter au client en question
      */
 
-    public void nouveauCompte(Compte leCompte){
+    public void nouveauCompte(Compte leCompte) {
         comptesClient.add(leCompte);
     }
 
     /**
      * Créer un moyen de paiement pour le client et lui affecter.
+     *
      * @param leMoyenPaiement : moyen de paiement à affecter au client en question
      */
 
-    public void nouveauMoyenPaiement(MoyenPaiement leMoyenPaiement){
+    public void nouveauMoyenPaiement(MoyenPaiement leMoyenPaiement) {
         moyenPaiementsClient.add(leMoyenPaiement);
     }
 
@@ -54,9 +57,9 @@ public class Client {
      * Afficher le opérations du client.
      */
 
-    public void afficherOperations(){
+    public void afficherOperations() {
         System.out.println("---------------------------------\nAffichage des opérations du client " + nomClient + " " + prenomClient);
-        for(int i=0; i<comptesClient.size(); i++){
+        for (int i = 0; i < comptesClient.size(); i++) {
             comptesClient.get(i).afficherOperations();
         }
     }
@@ -66,25 +69,25 @@ public class Client {
      * Afficher le solde des compte du client.
      */
 
-    public void afficherSolde(){
+    public void afficherSolde() {
         System.out.println("---------------------------------\nAffichage des soldes du client " + nomClient + " " + prenomClient);
-        for(int i=0; i<comptesClient.size(); i++){
+        for (int i = 0; i < comptesClient.size(); i++) {
             System.out.println("     Compte n°" + comptesClient.get(i).getNumeroCompte() + " : " + comptesClient.get(i).getSolde() + " €.");
         }
     }
 
-    public String afficherComptes(){
+    public String afficherComptes() {
         String affichage = "";
-        for(int i=0 ; i<comptesClient.size() ; i++){
+        for (int i = 0; i < comptesClient.size(); i++) {
             affichage += comptesClient.get(i).toString() + "\n";
         }
 
         return affichage;
     }
 
-    public String afficherMoyensPaiement(){
+    public String afficherMoyensPaiement() {
         String affichage = "";
-        for(int i=0 ; i<moyenPaiementsClient.size() ; i++){
+        for (int i = 0; i < moyenPaiementsClient.size(); i++) {
             affichage += moyenPaiementsClient.get(i).toString() + "\n";
         }
 
@@ -93,6 +96,7 @@ public class Client {
 
     /**
      * Getter pour le client.
+     *
      * @return NOM Prénom du client
      */
 
@@ -102,6 +106,7 @@ public class Client {
 
     /**
      * Méthode toString() dédiée à l'affichage d'un client avec ses comptes et ses moyens de paiement.
+     *
      * @return la chaîne de caractères pour le client
      */
 
@@ -112,7 +117,7 @@ public class Client {
         affichage += afficherComptes();
         affichage += "\n**** Moyens de paiement *********\n";
         affichage += afficherMoyensPaiement();
-        affichage += "*********************************" ;
+        affichage += "*********************************";
 
         return affichage;
     }

@@ -2,9 +2,18 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Banque {
+
+    /**
+     * Déclaration des attributs de la banque, à savoir les tableaux des comptes ouverts, des clients et des moyens de paiement.
+     */
+
     private ArrayList<Client> tableauClients = new ArrayList<Client>();
     private ArrayList<Compte> tableauComptes = new ArrayList<Compte>();
     private ArrayList<MoyenPaiement> tableauMoyensPaiement = new ArrayList<MoyenPaiement>();
+
+    /**
+     * Fonction permettant de créer un nouveau client.
+     */
 
     public void nouveauClient() {
         Scanner scanner = new Scanner(System.in);
@@ -29,6 +38,10 @@ public class Banque {
         System.out.println("Le client " + nom.toUpperCase() + " " + prenom + " a bien été ajouté.\n         Numéro de client lors des demandes : " + tableauClients.size());
     }
 
+    /**
+     * Fonction permettant d'afficher un client selon ce que défini dans la classe 'Client'
+     */
+
     public void afficherClient() {
         Scanner scanner = new Scanner(System.in);
         int numeroClient;
@@ -45,6 +58,11 @@ public class Banque {
             System.out.println("     Ce client ne peut pas exister...");
         }
     }
+
+    /**
+     * Fonction permettant d'ouvrir un compte en faisant appel à la classe 'Compte' et ses classes dérivées.
+     * On affectera ce compte à un client.
+     */
 
     public void ouvrirCompte() {
         Scanner scanner = new Scanner(System.in);
@@ -106,6 +124,11 @@ public class Banque {
             System.out.println("     Ce client ne peut pas exister...");
         }
     }
+
+    /**
+     * Fonction permettant de créer un nouveau moyen de paiement selon la classe 'MoyenPaiement'
+     * On affectera ce moyen de paiement à un client.
+     */
 
     public void nouveauMoyenPaiement() {
         Scanner scanner = new Scanner(System.in);
@@ -172,6 +195,11 @@ public class Banque {
         }
     }
 
+    /**
+     * Méthode permettant d'approvisionner un compte par les deux méthodes : apport d'espèces et virement depuis un autre compte.
+     * On utilisera les méthodes implémentées dans les classes 'Compte'.
+     */
+
     public void approvisionnerCompte() {
         Scanner scanner = new Scanner(System.in);
         int numeroCompte, numeroCompteDebite;
@@ -214,6 +242,11 @@ public class Banque {
         }
     }
 
+    /**
+     * Méthode permettant d'effectuer un paiement depuis un compte courant uniquement (instruction instanceof) avec le moyen de paiement désiré.
+     * On utilisera la méthode implémentée dans la classe 'CompteCourant'.
+     */
+
     public void effectuerPaiement() {
         Scanner scanner = new Scanner(System.in);
         int numeroCompte, numeroCompteCredite, numeroMoyenPaiement;
@@ -249,6 +282,11 @@ public class Banque {
         }
     }
 
+    /**
+     * Fonction de calcul des intérêts pour les comptes épargne exclusivement (instruction instanceof).
+     * On utilisera la méthode implémentée depuis la classe 'CompteEpargne'.
+     */
+
     public void calculerInterets() {
         Scanner scanner = new Scanner(System.in);
         int numeroCompte, annee;
@@ -272,6 +310,11 @@ public class Banque {
         }
     }
 
+    /**
+     * Fonction qui permet de consulter les comptes d'un client.
+     * On fera appel aux méthodes de la classe 'Client'
+     */
+
     public void consulterCompte() {
         Scanner scanner = new Scanner(System.in);
         int numeroClient;
@@ -288,6 +331,11 @@ public class Banque {
             System.out.println("     Le client ne peut pas exister...");
         }
     }
+
+    /**
+     * Fonction qui permet de consulter les soldes des comptes d'un client.
+     * On fera appel aux méthodes de la classe 'Client'
+     */
 
     public void consulterSolde() {
         Scanner scanner = new Scanner(System.in);
@@ -306,6 +354,11 @@ public class Banque {
         }
     }
 
+    /**
+     * Fonction qui permet de consulter les opérations des comptes d'un client.
+     * On fera appel aux méthodes de la classe 'Client'
+     */
+
     public void consulterOperations() {
         Scanner scanner = new Scanner(System.in);
         int numeroClient;
@@ -323,6 +376,11 @@ public class Banque {
         }
     }
 
+    /**
+     * Fonction qui permet de consulter les moyens de paiement d'un client.
+     * On fera appel aux méthodes de la classe 'Client'
+     */
+
     public void consulterMoyensPaiement() {
         Scanner scanner = new Scanner(System.in);
         int numeroClient;
@@ -339,6 +397,11 @@ public class Banque {
             System.out.println("     Le client ne peut pas exister...");
         }
     }
+
+    /**
+     * Fonction qui permet de modifier le découvert sur un compte courant ou de le supprimer.
+     * On utilisera les méthodes définies dans la classe 'CompteCourant'
+     */
 
     public void modifierDecouvert() {
         Scanner scanner = new Scanner(System.in);
@@ -368,6 +431,10 @@ public class Banque {
             System.out.println("     Le client ne peut pas exister...");
         }
     }
+
+    /**
+     * Méthode permettant de remettre à zéro le plafond de la carte bancaire sélectionnée. On vérifie qu'il s'agit bien d'une CB (instruction instanceof).
+     */
 
     public void razPlafondCarte() {
         Scanner scanner = new Scanner(System.in);
